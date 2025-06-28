@@ -57,18 +57,31 @@ It delivers **real-time visual feedback**, historical recordkeeping, and alerts 
 > Add your screenshots in a `screenshots/` directory
 >
 REGISTRATION
+
 ![image](https://github.com/user-attachments/assets/7058bd46-3c5b-47d0-8f6d-a97182d9b302)
 
+
 SIGNIN/LOGIN PAGE
+
 ![image](https://github.com/user-attachments/assets/4b52c64b-19f6-4b47-a362-76abde24192c)
 
+
+
 HOME
+
 ![image](https://github.com/user-attachments/assets/ce967d80-fbe0-4f37-907e-7a148940173e)
 
+
 DASHBOARD
+
+
 ![image](https://github.com/user-attachments/assets/834a4750-8cee-4075-81c0-3c7927badd48)
 
+
+
+
 HISTORY
+
 ![image](https://github.com/user-attachments/assets/8bfdde87-7725-4b9a-a37e-1b974c30c98c)
 
 
