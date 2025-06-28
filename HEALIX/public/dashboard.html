@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Healix Dashboard</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(315deg, #6a11cb 0%, #2575fc 74%);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    .logout-btn {
+      background: #fff;
+      color: #6a11cb;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #ddd;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .profile-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .profile-pic {
+      flex: 0 0 150px;
+      text-align: center;
+    }
+
+    .profile-pic img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #6a11cb;
+    }
+
+    .profile-pic input {
+      margin-top: 10px;
+    }
+
+    .user-details {
+      flex: 1;
+    }
+
+    .user-details input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #6a11cb;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #4c00af;
+    }
+
+    .feedback-btn {
+      background-color: #ff4081;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card i {
+      font-size: 48px;
+      margin-bottom: 10px;
+      color: #6a11cb;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card span {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: #f0f0f0;
+      margin-top: 40px;
+      border-top: 1px solid #ccc;
+    }
+
+    .footer small {
+      color: #777;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+      height: 100px;
+      margin: 15px 0;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .stars i {
+      font-size: 24px;
+      margin: 0 5px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .stars i.selected {
+      color: #ffc107;
+    }
+
+    @media screen and (max-width: 768px) {
+      .profile-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .user-details input {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Healix Dashboard</h1>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </header>
+
+  <div class="container">
+
+    <div class="profile-card">
+      <div class="profile-pic">
+        <img id="profileImage" src="https://via.placeholder.com/120" alt="Profile Picture">
+        <input type="file" accept="image/*" onchange="uploadProfileImage(event)">
+      </div>
+
+      <div class="user-details">
+        <input type="text" id="userName" placeholder="Full Name" />
+        <input type="number" id="userAge" placeholder="Age" />
+        <input type="text" id="userAddress" placeholder="Address" />
+        <input type="tel" id="userPhone" placeholder="Phone Number" />
+        <input type="email" id="userEmail" placeholder="Email" />
+
+        <div class="buttons">
+          <button class="btn" onclick="saveDetails()">💾 Save Details</button>
+          <button class="btn" onclick="previewDetails()">👁 Preview</button>
+          <button class="btn feedback-btn" onclick="openFeedback()">💬 Feedback</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health Cards -->
+    <section class="dashboard">
+      <div class="card">
+        <i class='bx bx-heart'></i>
+        <h3>Heart Rate</h3>
+        <span id="heartRate">-- bpm</span>
+      </div>
+      <div class="card">
+        <i class='bx bx-pulse'></i>
+        <h3>Pulse Rate</h3>
+        <span id="pulseRate">-- bpm</span>
+      </div>
+      <div class="card">
+        <i class='bx bx-tachometer'></i>
+        <h3>Blood Pressure</h3>
+        <span id="bloodPressure">--/-- mmHg</span>
+      </div>
+      <div class="card">
+        <i class='bx bx-health'></i>
+        <h3>Health Score</h3>
+        <span id="healthScore">--%</span>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <small>&copy; 2025 Healix | All Rights Reserved | Created by Saurav Raj (CEO & Developer)</small>
+  </footer>
+
+  <!-- Feedback Modal -->
+  <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeFeedback()">&times;</span>
+      <h3>Give Your Feedback</h3>
+      <div class="stars" id="starContainer">
+        <i class="fa-regular fa-star" data-value="1"></i>
+        <i class="fa-regular fa-star" data-value="2"></i>
+        <i class="fa-regular fa-star" data-value="3"></i>
+        <i class="fa-regular fa-star" data-value="4"></i>
+        <i class="fa-regular fa-star" data-value="5"></i>
+      </div>
+      <textarea id="feedbackText" placeholder="Your valuable feedback..."></textarea>
+      <button class="btn" onclick="submitFeedback()">Submit Feedback</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.clear();
+      window.location.href = 'index.html';
+    }
+
+    // Load health data & profile
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById('heartRate').textContent = '76 bpm';
+      document.getElementById('pulseRate').textContent = '74 bpm';
+      document.getElementById('bloodPressure').textContent = '118/78 mmHg';
+      document.getElementById('healthScore').textContent = '91%';
+
+      const profileData = JSON.parse(localStorage.getItem('healixProfile')) || {};
+      document.getElementById('userName').value = profileData.name || '';
+      document.getElementById('userAge').value = profileData.age || '';
+      document.getElementById('userAddress').value = profileData.address || '';
+      document.getElementById('userPhone').value = profileData.phone || '';
+      document.getElementById('userEmail').value = profileData.email || '';
+      if (profileData.image) {
+        document.getElementById('profileImage').src = profileData.image;
+      }
+    });
+
+    function uploadProfileImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('profileImage').src = e.target.result;
+        const profile = JSON.parse(localStorage.getItem('healixProfile')) || {};
+        profile.image = e.target.result;
+        localStorage.setItem('healixProfile', JSON.stringify(profile));
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveDetails() {
+      const profile = {
+        name: document.getElementById('userName').value,
+        age: document.getElementById('userAge').value,
+        address: document.getElementById('userAddress').value,
+        phone: document.getElementById('userPhone').value,
+        email: document.getElementById('userEmail').value,
+        image: document.getElementById('profileImage').src
+      };
+      localStorage.setItem('healixProfile', JSON.stringify(profile));
+      alert("Profile details saved!");
+    }
+
+    function previewDetails() {
+      const profile = JSON.parse(localStorage.getItem('healixProfile')) || {};
+      alert(
+        `Name: ${profile.name || '--'}\nAge: ${profile.age || '--'}\nAddress: ${profile.address || '--'}\nPhone: ${profile.phone || '--'}\nEmail: ${profile.email || '--'}`
+      );
+    }
+
+    // Feedback Modal Logic
+    const modal = document.getElementById('feedbackModal');
+    function openFeedback() {
+      modal.style.display = "flex";
+    }
+    function closeFeedback() {
+      modal.style.display = "none";
+    }
+
+    const stars = document.querySelectorAll('.stars i');
+    let currentRating = 0;
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        currentRating = parseInt(star.getAttribute('data-value'));
+        updateStarDisplay();
+      });
+    });
+
+    function updateStarDisplay() {
+      stars.forEach(star => {
+        star.classList.toggle('selected', parseInt(star.getAttribute('data-value')) <= currentRating);
+      });
+    }
+
+    function submitFeedback() {
+      const feedbackText = document.getElementById('feedbackText').value;
+      if (!currentRating || !feedbackText.trim()) {
+        alert("Please add a rating and comment.");
+        return;
+      }
+      alert(`Thanks for your feedback!\n⭐ Rating: ${currentRating}\n💬 Comment: ${feedbackText}`);
+      closeFeedback();
+      document.getElementById('feedbackText').value = '';
+      currentRating = 0;
+      updateStarDisplay();
+    }
+  </script>
+</body>
+</html>

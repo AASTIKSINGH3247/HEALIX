@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healix - Heart Health Login</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      background: #fff;
+      width: 1400px;
+      height: 1050px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .panel {
+      width: 50%;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f6f5f7;
+      animation: slideInLeft 1s ease-in-out;
+    }
+
+    .form-container {
+      width: 50%;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: white;
+      animation: slideInRight 1s ease-in-out;
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .panel h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .btn-panel {
+      padding: 10px 25px;
+      border: none;
+      background: #9b59b6;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn-panel:hover {
+      background: #8e44ad;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .social-icons i {
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .social-icons i:hover {
+      color: #9b59b6;
+      transform: scale(1.1);
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 15px 45px 15px 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      background: #f0f0f0;
+      transition: 0.3s;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      background: #f0f0f0;
+      padding: 0 5px;
+      color: #999;
+      pointer-events: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #9b59b6;
+    }
+
+    .input-group i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .submit-btn {
+      background: #9b59b6;
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #8e44ad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="panel">
+      <h2>Welcome Back!</h2>
+      <button class="btn-panel" onclick="location.href='login.html'">Sign In</button>
+    </div>
+    <div class="form-container">
+      <h2>Create Account</h2>
+      <div class="social-icons">
+        <i class='bx bxl-google'></i>
+        <i class='bx bxl-facebook'></i>
+        <i class='bx bxl-twitter'></i>
+        <i class='bx bxl-linkedin'></i>
+      </div>
+      <form action="/api/auth/register" method="POST">
+        <div class="input-group">
+          <input type="text" name="username" placeholder=" " required>
+          <label>Username</label>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-group">
+          <input type="email" name="email" placeholder=" " required>
+          <label>Email</label>
+          <i class='bx bxs-envelope'></i>
+        </div>
+        <div class="input-group">
+          <input type="password" name="password" placeholder=" " required>
+          <label>Password</label>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

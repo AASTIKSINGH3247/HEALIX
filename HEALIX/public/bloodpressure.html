@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blood Pressure - Healix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #74ebd5;
+      --secondary: #9face6;
+      --white: #ffffff;
+      --text-dark: #333;
+      --green: #7bed9f;
+      --red: #ff6b6b;
+      --yellow: #feca57;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, var(--primary), var(--secondary));
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .back-link {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 30px;
+      display: inline-block;
+      font-size: 1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin-bottom: 25px;
+    }
+
+    .bp-values {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .bp-values div {
+      text-align: center;
+    }
+
+    .status {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .normal {
+      background-color: var(--green);
+      color: var(--text-dark);
+    }
+
+    .high {
+      background-color: var(--red);
+      color: var(--white);
+    }
+
+    .elevated {
+      background-color: var(--yellow);
+      color: var(--text-dark);
+    }
+
+    .tips {
+      text-align: left;
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .tips li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
+
+  <h1>Blood Pressure</h1>
+
+  <div class="card">
+    <h2>Today's Reading</h2>
+
+    <div class="bp-values">
+      <div>
+        <strong>120</strong><br/>
+        Systolic
+      </div>
+      <div>
+        <strong>80</strong><br/>
+        Diastolic
+      </div>
+    </div>
+
+    <div class="status normal">Normal</div>
+
+    <div class="tips">
+      <h3>Tips to Maintain Healthy Blood Pressure:</h3>
+      <ul>
+        <li>🥗 Reduce salt and saturated fat intake.</li>
+        <li>🚶‍♀️ Get at least 30 minutes of daily physical activity.</li>
+        <li>🧘 Practice stress-reduction techniques like meditation or yoga.</li>
+        <li>🚭 Avoid smoking and limit alcohol.</li>
+        <li>📉 Maintain a healthy weight and BMI.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>© 2025 Healix. All rights reserved.</footer>
+</body>
+</html>

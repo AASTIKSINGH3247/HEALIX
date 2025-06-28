@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Start Tracking - Healix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00c6ff;
+      --secondary: #0072ff;
+      --white: #ffffff;
+      --text-dark: #222;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, var(--primary), var(--secondary));
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 300px;
+      max-width: 1600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    }
+
+    .info {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 12px 25px;
+      margin: 5px;
+      border: none;
+      border-radius: 30px;
+      background-color: var(--white);
+      color: var(--text-dark);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .buttons button:hover {
+      background-color: #f1f1f1;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #eee;
+    }
+
+    .back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Home</a>
+  <h1>Step & Calorie Tracker</h1>
+
+  <div class="card">
+    <div class="info">Steps Taken: <div class="highlight" id="steps">0</div></div>
+    <div class="info">Calories Burned: <div class="highlight" id="calories">0</div> kcal</div>
+    <div class="info">Activity: <div class="highlight" id="activity">Idle</div></div>
+
+    <div class="buttons">
+      <button onclick="startTracking()">Start</button>
+      <button onclick="stopTracking()">Stop</button>
+    </div>
+
+    <div class="status" id="status">Status: Not tracking</div>
+  </div>
+
+  <footer>© 2025 Healix. All rights reserved.</footer>
+
+  <script>
+    let steps = 0;
+    let calories = 0;
+    let tracking = false;
+    let lastStepTime = 0;
+    let motionHandler;
+
+    function startTracking() {
+      if (tracking) return;
+
+      steps = 0;
+      calories = 0;
+      updateUI();
+
+      if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission()
+          .then(permission => {
+            if (permission === 'granted') {
+              motionHandler = handleMotion;
+              window.addEventListener('devicemotion', motionHandler);
+              tracking = true;
+              document.getElementById("status").textContent = "Status: Tracking...";
+            }
+          }).catch(console.error);
+      } else {
+        motionHandler = handleMotion;
+        window.addEventListener('devicemotion', motionHandler);
+        tracking = true;
+        document.getElementById("status").textContent = "Status: Tracking...";
+      }
+    }
+
+    function stopTracking() {
+      if (!tracking) return;
+      window.removeEventListener('devicemotion', motionHandler);
+      tracking = false;
+      document.getElementById("status").textContent = "Status: Tracking stopped.";
+    }
+
+    function handleMotion(event) {
+      const acc = event.accelerationIncludingGravity;
+      const magnitude = Math.sqrt(acc.x * acc.x + acc.y * acc.y + acc.z * acc.z);
+      const now = Date.now();
+
+      if (magnitude > 12 && now - lastStepTime > 350) {
+        steps++;
+        lastStepTime = now;
+        calories = (steps * 0.04).toFixed(2); // estimate 0.04 kcal per step
+        updateUI();
+      }
+    }
+
+    function updateUI() {
+      document.getElementById("steps").textContent = steps;
+      document.getElementById("calories").textContent = calories;
+
+      let activity = "Idle";
+      if (steps > 0 && steps < 200) activity = "Walking";
+      else if (steps >= 200) activity = "Running";
+      document.getElementById("activity").textContent = activity;
+    }
+  </script>
+</body>
+</html>

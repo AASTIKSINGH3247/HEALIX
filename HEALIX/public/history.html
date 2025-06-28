@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health History | Healix</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #8360c3, #2ebf91);
+      color: #333;
+    }
+
+    header {
+      background: #2c3e50;
+      padding: 20px 40px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 26px;
+    }
+
+    .back-btn {
+      background: white;
+      color: #2c3e50;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #ccc;
+    }
+
+    .history-container {
+      padding: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    th {
+      background: #34495e;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f2f2f2;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+      background: #ecf0f1;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Health History</h1>
+    <button class="back-btn" onclick="goBack()">&larr; Dashboard</button>
+  </header>
+
+  <div class="history-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Heart Rate</th>
+          <th>Pulse</th>
+          <th>Blood Pressure</th>
+          <th>Health Score</th>
+        </tr>
+      </thead>
+      <tbody id="historyTable">
+        <!-- Data rows will be injected here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="footer">
+    <small>&copy; 2025 Healix | All Rights Reserved | Created by Saurav Raj (CEO & Developer)</small>
+  </footer>
+
+  <script>
+    function goBack() {
+      window.location.href = 'dashboard.html';
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const sampleData = [
+        { date: '2025-06-01', heart: 75, pulse: 73, bp: '120/80', score: '90%' },
+        { date: '2025-06-02', heart: 77, pulse: 74, bp: '118/79', score: '91%' },
+        { date: '2025-06-03', heart: 74, pulse: 72, bp: '116/78', score: '92%' },
+        { date: '2025-06-04', heart: 78, pulse: 76, bp: '122/82', score: '89%' },
+        { date: '2025-06-05', heart: 76, pulse: 75, bp: '119/80', score: '90%' },
+      ];
+
+      const table = document.getElementById('historyTable');
+      sampleData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.date}</td>
+          <td>${row.heart} bpm</td>
+          <td>${row.pulse} bpm</td>
+          <td>${row.bp}</td>
+          <td>${row.score}</td>
+        `;
+        table.appendChild(tr);
+      });
+    });
+  </script>
+</body>
+</html>

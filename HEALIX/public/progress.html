@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progress | Healix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #74ebd5;
+      --secondary: #9face6;
+      --text-dark: #3a3a3a;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, var(--primary), var(--secondary));
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      color: var(--white);
+      padding: 40px 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+
+    .progress-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .progress-section {
+      margin-bottom: 40px;
+    }
+
+    .progress-label {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      height: 25px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--white);
+      border-radius: 20px;
+      transition: width 1.2s ease;
+    }
+
+    canvas {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 100%;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Progress</h1>
+
+  <div class="progress-container">
+
+    <!-- Section 1: Progress Bars -->
+    <div class="progress-section">
+      <div class="progress-label">Daily Steps</div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 70%;"></div></div>
+
+      <div class="progress-label">Sleep Hours</div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+
+      <div class="progress-label">Water Intake</div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
+    </div>
+
+    <!-- Section 2: Chart -->
+    <div class="progress-section">
+      <h2 style="text-align:center; margin-bottom: 20px;">Weekly Heart Rate</h2>
+      <canvas id="heartRateChart" height="200"></canvas>
+    </div>
+  </div>
+
+  <footer>© 2025 Healix. All rights reserved.</footer>
+
+  <script>
+    // Animate progress bars on load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.progress-fill').forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => bar.style.width = width, 100);
+      });
+    });
+
+    // Heart Rate Line Chart
+    const ctx = document.getElementById('heartRateChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Heart Rate (BPM)',
+          data: [72, 75, 78, 76, 73, 74, 77],
+          fill: true,
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderColor: '#ffffff',
+          tension: 0.4,
+          pointBackgroundColor: '#ffffff',
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false,
+            ticks: { color: '#fff' },
+            grid: { color: 'rgba(255,255,255,0.1)' }
+          },
+          x: {
+            ticks: { color: '#fff' },
+            grid: { color: 'rgba(255,255,255,0.1)' }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fff'
+            }
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

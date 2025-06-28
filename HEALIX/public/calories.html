@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calories Burned - Healix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #74ebd5;
+      --secondary: #9face6;
+      --white: #ffffff;
+      --text-dark: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, var(--primary), var(--secondary));
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .back-link {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 30px;
+      display: inline-block;
+      font-size: 1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 1600px;
+      width: 200%;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin-bottom: 25px;
+    }
+
+    .progress-container {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      overflow: hidden;
+      height: 25px;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--white);
+      width: 75%; /* Example value */
+      color: var(--text-dark);
+      font-weight: bold;
+      text-align: center;
+      line-height: 25px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .summary {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .summary li {
+      margin-bottom: 8px;
+    }
+
+    .track-btn {
+      margin-top: 25px;
+      padding: 12px 30px;
+      background-color: var(--white);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .track-btn:hover {
+      background-color: #f1f1f1;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
+
+  <h1>Calories Burned</h1>
+
+  <div class="card">
+    <h2>Today's Summary</h2>
+    <p>You’ve burned <strong>1,500 kcal</strong> today.</p>
+
+    <div class="progress-container">
+      <div class="progress-bar" style="width: 75%;">75%</div>
+    </div>
+
+    <ul class="summary">
+      <li>🏃‍♂️ Steps: 8,200</li>
+      <li>🔥 Activity: 45 minutes of cardio</li>
+      <li>🍽️ Calories Intake: 2,000 kcal</li>
+      <li>📉 Net Burn: 500 kcal</li>
+      <li>📲 Device: Motion sensor-supported (accelerometer)</li>
+    </ul>
+
+    <a href="start-tracking.html" class="track-btn">Start Live Tracking</a>
+  </div>
+
+  <footer>© 2025 Healix. All rights reserved.</footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pulse Rate - Healix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #74ebd5;
+      --secondary: #9face6;
+      --white: #ffffff;
+      --text-dark: #333;
+      --green: #7bed9f;
+      --yellow: #feca57;
+      --red: #ff6b6b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, var(--primary), var(--secondary));
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .back-link {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 30px;
+      display: inline-block;
+      font-size: 1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .pulse-value {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .normal {
+      background-color: var(--green);
+      color: var(--text-dark);
+    }
+
+    .elevated {
+      background-color: var(--yellow);
+      color: var(--text-dark);
+    }
+
+    .high {
+      background-color: var(--red);
+      color: var(--white);
+    }
+
+    .tips {
+      text-align: left;
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .tips li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Home</a>
+
+  <h1>Pulse Rate</h1>
+
+  <div class="card">
+    <div class="pulse-value">75 BPM</div>
+    <div class="status normal">Normal</div>
+
+    <div class="tips">
+      <h3>Tips for Maintaining a Healthy Pulse:</h3>
+      <ul>
+        <li>🧘‍♀️ Practice relaxation techniques like deep breathing and meditation.</li>
+        <li>🚴‍♂️ Engage in regular aerobic activity (e.g., walking, cycling).</li>
+        <li>💧 Stay hydrated to support heart function.</li>
+        <li>🍵 Limit caffeine and alcohol intake.</li>
+        <li>💤 Ensure adequate sleep (7–9 hours per night).</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>© 2025 Healix. All rights reserved.</footer>
+</body>
+</html>

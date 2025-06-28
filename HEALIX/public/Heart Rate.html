@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Advanced Heart Rate Monitor</title>
+  <style>
+    body {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    #video {
+      border-radius: 16px;
+      margin-top: 20px;
+      box-shadow: 0 0 15px rgba(0,255,0,0.2);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #bpm {
+      font-size: 2rem;
+      margin-top: 30px;
+    }
+
+    #feedback {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #90ee90;
+    }
+
+    #pulseCircle {
+      width: 30px;
+      height: 30px;
+      margin: 20px auto;
+      background: #ff3366;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+    }
+
+    canvas {
+      display: none;
+    }
+
+    #graph {
+      width: 80%;
+      height: 1500px;
+      margin: 20px auto;
+      background: #111;
+      border: 1px solid #333;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00b894;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #00cec9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Camera-Based Heart Rate Monitor</h1>
+  <p>Place your face or fingertip near the camera. Press "Start" to begin.</p>
+
+  <video id="video" width="320" height="240" autoplay playsinline></video>
+  <canvas id="canvas" width="320" height="240"></canvas>
+  <canvas id="graph"></canvas>
+
+  <div id="pulseCircle"></div>
+  <div id="bpm">Waiting...</div>
+  <div id="feedback"></div>
+
+  <button onclick="startMonitoring()">Start</button>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const graphCanvas = document.getElementById('graph');
+    const graphCtx = graphCanvas.getContext('2d');
+    const bpmDisplay = document.getElementById('bpm');
+    const feedback = document.getElementById('feedback');
+    const pulseCircle = document.getElementById('pulseCircle');
+
+    let greenValues = [];
+    let lastPeak = 0;
+    let beats = 0;
+    let startTime = null;
+    let monitoring = false;
+    let animationFrame;
+
+    function startMonitoring() {
+      if (monitoring) return;
+      monitoring = true;
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }).then(stream => {
+        video.srcObject = stream;
+        requestAnimationFrame(analyzeFrame);
+      }).catch(err => {
+        bpmDisplay.innerText = "Camera access denied.";
+        console.error(err);
+      });
+    }
+
+    function analyzeFrame() {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      let green = 0, count = 0;
+
+      for (let i = 0; i < frame.data.length; i += 4) {
+        green += frame.data[i + 1]; // green channel
+        count++;
+      }
+
+      const avgGreen = green / count;
+      greenValues.push(avgGreen);
+      if (greenValues.length > 200) greenValues.shift();
+
+      drawGraph(greenValues);
+
+      if (greenValues.length >= 50) {
+        const peak = detectPeak(greenValues);
+        if (peak && (Date.now() - lastPeak > 500)) {
+          lastPeak = Date.now();
+          beats++;
+          pulseEffect();
+        }
+
+        if (!startTime) startTime = Date.now();
+        const elapsed = (Date.now() - startTime) / 1000;
+
+        if (elapsed >= 10) {
+          const bpm = Math.round((beats / elapsed) * 60);
+          bpmDisplay.innerText = `Heart Rate: ${bpm} BPM`;
+          beats = 0;
+          startTime = Date.now();
+          updateFeedback(bpm);
+        }
+      }
+
+      animationFrame = requestAnimationFrame(analyzeFrame);
+    }
+
+    function detectPeak(data) {
+      const mid = Math.floor(data.length / 2);
+      return data[mid] > data[mid - 1] && data[mid] > data[mid + 1];
+    }
+
+    function drawGraph(data) {
+      graphCtx.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
+      graphCtx.beginPath();
+      graphCtx.strokeStyle = "#00ffcc";
+      graphCtx.lineWidth = 2;
+
+      for (let i = 0; i < data.length; i++) {
+        const x = (i / data.length) * graphCanvas.width;
+        const y = graphCanvas.height - ((data[i] - Math.min(...data)) / (Math.max(...data) - Math.min(...data))) * graphCanvas.height;
+        if (i === 0) graphCtx.moveTo(x, y);
+        else graphCtx.lineTo(x, y);
+      }
+      graphCtx.stroke();
+    }
+
+    function pulseEffect() {
+      pulseCircle.style.transform = "scale(1.5)";
+      setTimeout(() => pulseCircle.style.transform = "scale(1)", 100);
+    }
+
+    function updateFeedback(bpm) {
+      if (bpm < 60) {
+        feedback.innerText = "Low Heart Rate. Stay warm and hydrated.";
+        feedback.style.color = "#ffa502";
+      } else if (bpm >= 60 && bpm <= 100) {
+        feedback.innerText = "Normal Heart Rate. You're good!";
+        feedback.style.color = "#2ecc71";
+      } else {
+        feedback.innerText = "High Heart Rate. Relax and breathe.";
+        feedback.style.color = "#ff4757";
+      }
+    }
+  </script>
+</body>
+</html>

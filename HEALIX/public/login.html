@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Healix - Sign In</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #fff;
+      width: 500px;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 15px 45px 15px 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      background: #f0f0f0;
+      transition: 0.3s;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      background: #f0f0f0;
+      padding: 0 5px;
+      color: #999;
+      pointer-events: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 12px;
+      color: #9b59b6;
+    }
+
+    .input-group i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: #9b59b6;
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #8e44ad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign In to Healix</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="email" id="email" placeholder=" " required />
+        <label for="email">Email</label>
+        <i class='bx bxs-envelope'></i>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder=" " required />
+        <label for="password">Password</label>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <button type="submit" class="submit-btn">Sign in</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // ⚠️ Skip validation — auto-redirect for any input
+      if (email && password) {
+        window.location.href = 'home.html';
+      } else {
+        alert('Please fill in both fields.');
+      }
+    });
+  </script>
+</body>
+</html>
